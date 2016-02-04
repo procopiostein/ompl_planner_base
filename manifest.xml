@@ -1,0 +1,38 @@
+<package>
+  <description brief="ompl_planner_base">
+
+     The ompl_planner_base implements an interface to the Open Motion Planning Library (ompl) ROS package by Rice University in form of a plugin to the global_planner for navigation of the mobile base.
+
+To start PR2 in simulation with the ompl_planner_base plugin loaded to the base global planner call pr2_ompl_planner_base_gazebo.launch or ..._stage.launch from within tis package. The rviz launchfile starts up rviz with the topic for the global path set accordingly.
+
+You can switch between the different planners of the ompl library, by setting the "global_planner_type" parameter (/move_base_node/OMPLPlannerBase/global_planner_type) to the name of the planner you want to use. Currently, valid options are (KPIECE, LBKPIECE, SBL, pSBL, RRTConnect, EST, PRM, RRT, pRRT, LazyRRT).
+
+  </description>
+  <author>Christian Connette, Eitan Marder-Eppstein</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/ompl_planner_base</url>
+
+  <!-- ros cturtle dependencies -->
+  <depend package="roscpp"/>
+  <depend package="pluginlib"/>
+  <depend package="nav_core"/>
+  <depend package="costmap_2d"/>
+  <depend package="geometry_msgs"/>
+  <depend package="nav_msgs"/>
+  <depend package="tf" />
+  <depend package="angles"/>
+  <depend package="base_local_planner" />
+  <!-- ros sandbox dependencies -->
+  <depend package="ompl_ros_interface" />
+  <!-- ros 3rd party dependencies -->
+  <depend package="ompl"/>
+
+  <export>
+    <cpp cflags="-I${prefix}/include -I${prefix}/msg/cpp" lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -lompl_planner_base"/>
+    <nav_core plugin="${prefix}/bgp_plugin.xml" />
+  </export>
+
+</package>
+
+
